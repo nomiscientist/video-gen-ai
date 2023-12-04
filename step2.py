@@ -16,7 +16,7 @@ tts = TextToSpeech()
 
 # Generating a random voice to speak the sentence below. When you generate one you like, save it using the cell below
 text = "Look how easy it is to create an artificial speaker."
-voice = 'emma'
+voice = 'freeman'
 preset = "high_quality" #Options: {"ultra_fast", "fast", "standard", "high_quality"}.
 
 gen = tortoise_run(tts, text, voice, preset)
@@ -35,4 +35,4 @@ silent_segment.export(save_path, format="wav")
 
 from LIHQ.runLIHQ import run
 
-run(face='/home/ec2-user/extras/LIHQ/input/face/examples/2372448.png')
+run(face='/home/ec2-user/extras/LIHQ/input/face/examples/morgan.png')
