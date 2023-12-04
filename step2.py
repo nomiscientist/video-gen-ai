@@ -16,7 +16,7 @@ tts = TextToSpeech()
 
 # Generating a random voice to speak the sentence below. When you generate one you like, save it using the cell below
 text = "Look how easy it is to create an artificial speaker."
-voice = 'random'
+voice = 'emma'
 preset = "high_quality" #Options: {"ultra_fast", "fast", "standard", "high_quality"}.
 
 gen = tortoise_run(tts, text, voice, preset)
