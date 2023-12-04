@@ -103,6 +103,9 @@ def run(face, audio_super = 'LIHQ/input/audio/', ref_vid = 'LIHQ/input/ref_vid/s
     for adir in aud_dir_names:
         in_pth = str(Path(os.getcwd()).parent.absolute()) + f'/output/vid2Frames/Round1/{adir}/'
         out_pth = str(Path(os.getcwd()).parent.absolute()) + f'/output/GFPGAN/Round1/{adir}/'
+
+        print(in_pth)
+        print(out_path)
         command = f'python inference_gfpgan.py -i {in_pth} -o {out_pth} -v 1.3 -s 4 --bg_upsampler realesrgan'
         try:
             subprocess.call(command, shell=True)
@@ -114,9 +117,7 @@ def run(face, audio_super = 'LIHQ/input/audio/', ref_vid = 'LIHQ/input/ref_vid/s
     print('Completed Restoration Round 1')
 
     #frames2Vid (Converting frames back to video)
-    print(aud_dir_names)
     for adir in aud_dir_names:
-        print(f'{audio_super}{adir}')
         aud_path = glob.glob(f'/home/ec2-user/extras/{audio_super}{adir}/*')[0]
         frames_in_path = f'./LIHQ/output/GFPGAN/Round1/{adir}/restored_imgs/%5d.png'
         vid_out_path = f'./LIHQ/output/frames2Vid/Round1/{adir}.mp4'
