@@ -21,6 +21,7 @@ def FOMM_chop_refvid(aud_dir_names, ref_vid, audio_super, ref_vid_offset):
 
     for adir in aud_dir_names:
         os.makedirs(f'/home/ec2-user/extras/LIHQ/first_order_model/input-ref-vid/{adir}', exist_ok=True)
+        print(f'{audio_super}{adir}/*')
         audio = glob.glob(f'{audio_super}{adir}/*')[0]
         audio_length = librosa.get_duration(filename = audio)
 
