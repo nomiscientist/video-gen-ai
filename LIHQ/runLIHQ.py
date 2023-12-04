@@ -137,7 +137,7 @@ def run(face, audio_super = 'LIHQ/input/audio/', ref_vid = 'LIHQ/input/ref_vid/s
     print("First Order Motion Model")
     i=0
     for adir in aud_dir_names:
-        ref_video = f'./LIHQ/output/frames2Vid/Round1/{adir}.mp4'
+        ref_video = f'/home/ec2-user/extras/LIHQ/output/frames2Vid/Round1/{adir}.mp4'
         FOMM_run(face[i], ref_video, generator, kp_detector, adir, Round = "2", relativeTF = False)
         i+=1
 
