@@ -22,3 +22,17 @@ preset = "high_quality" #Options: {"ultra_fast", "fast", "standard", "high_quali
 gen = tortoise_run(tts, text, voice, preset)
 
 torchaudio.save('LIHQ/input/audio/Folder1/2.wav', gen.squeeze(0).cpu(), 24000)
+
+# Adding half a second of silence before audio, because FOMM works better when first frame is a closed mouth.
+# Also helps with abrupt start/ stop if you want to add silence after as well.
+from pydub import AudioSegment
+
+silence_duration = 500  # Set duration in milliseconds. 1000 is 1 second
+save_path = 'LIHQ/input/audio/Folder1/1.wav'
+
+silent_segment = AudioSegment.silent(duration=silence_duration)  
+silent_segment.export(save_path, format="wav")
+
+from LIHQ.runLIHQ import run
+
+run(face='/home/ec2-user/extras/LIHQ/input/face/examples/2372448.png')
