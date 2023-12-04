@@ -3,6 +3,7 @@ import subprocess
 import sys
 
 def wav2lip_run(adir):
+  print("path:" + os.getcwd())
   vid_path = f'{os.getcwd()}/output/FOMM/Round1/{adir}.mp4'
   aud_path = f'{os.getcwd()}/input/audio/{adir}/{adir}.wav'
   out_path = f'{os.getcwd()}/output/wav2Lip/{adir}.mp4'
