@@ -114,6 +114,7 @@ def run(face, audio_super = 'LIHQ/input/audio/', ref_vid = 'LIHQ/input/ref_vid/s
     print('Completed Restoration Round 1')
 
     #frames2Vid (Converting frames back to video)
+    print(aud_dir_names)
     for adir in aud_dir_names:
         print(f'{audio_super}{adir}')
         aud_path = glob.glob(f'{audio_super}{adir}/*')[0]
