@@ -101,8 +101,8 @@ def run(face, audio_super = 'LIHQ/input/audio/', ref_vid = 'LIHQ/input/ref_vid/s
     print("Beginning restoration and upscaling")
     os.chdir('GFPGAN')
     for adir in aud_dir_names:
-        in_pth = str(Path(os.getcwd()).parent.absolute()) + f'/LIHQ/output/vid2Frames/Round1/{adir}/'
-        out_pth = str(Path(os.getcwd()).parent.absolute()) + f'/LIHQ/output/GFPGAN/Round1/{adir}/'
+        in_pth = str(Path(os.getcwd()).parent.absolute()) + f'/output/vid2Frames/Round1/{adir}/'
+        out_pth = str(Path(os.getcwd()).parent.absolute()) + f'/output/GFPGAN/Round1/{adir}/'
         command = f'python inference_gfpgan.py -i {in_pth} -o {out_pth} -v 1.3 -s 4 --bg_upsampler realesrgan'
         try:
             subprocess.call(command, shell=True)
