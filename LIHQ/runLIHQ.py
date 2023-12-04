@@ -106,7 +106,7 @@ def run(face, audio_super = 'LIHQ/input/audio/', ref_vid = 'LIHQ/input/ref_vid/s
 
         print(in_pth)
         print(out_pth)
-        command = f'python inference_gfpgan.py -i {in_pth} -o {out_pth} -v 1.3 -s 4 --bg_upsampler realesrgan'
+        command = f'python /home/ec2-user/extras/LIHQ/GFPGAN/inference_gfpgan.py -i {in_pth} -o {out_pth} -v 1.3 -s 4 --bg_upsampler realesrgan'
         try:
             subprocess.call(command, shell=True)
         except subprocess.CalledProcessError:
