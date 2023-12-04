@@ -58,31 +58,33 @@ output_path = "biden_static.mp4" # EVERYTHING IN POSTPROCESSING FOLDER GETS DELE
 
 
 # Just running a preview of first frame of final video. Adjust parameters above as needed and rerun
-%cd '/content/LIHQ'
-
 from IPython.display import Image
 from pathlib import Path
 
-from procedures.matting_scripts import matte_preview
-from procedures.matting_scripts import matte_combine
+from LIHQ.procedures.matting_scripts import matte_preview
+from LIHQ.procedures.matting_scripts import matte_combine
 
 #Delete Video Matting files from previous run (if any)
-for path in Path("./output/postprocessing/").glob("**/*"): #Check path with cwd
+for path in Path("LIHQ/output/postprocessing/").glob("**/*"): #Check path with cwd
     if path.is_file():
         path.unlink()
 
 #Generating image data
 matte_preview(speaker_vid, background, bg_resize, spkr_resize, offset)
 
+import os
+import subprocess
+import sys
+
 #Creating mask with MODNet
-%cd '/content/LIHQ/MODNet'
-!python -m demo.image_matting.colab.inference \
+
+command = "python -m LIHQ.MODNet.demo.image_matting.colab.inference \
         --input-path /content/LIHQ/output/postprocessing/input \
         --output-path /content/LIHQ/output/postprocessing/masks \
-        --ckpt-path ./pretrained/modnet_photographic_portrait_matting.ckpt
-%cd '..'
+        --ckpt-path ./pretrained/modnet_photographic_portrait_matting.ckpt"
+subprocess.call(command, shell=True)
 
 #Combining speaker, mask, background
 matte_combine(offset, rotation)
 
-Image('./output/postprocessing/output/preview.png')
+print("DONE!!")
