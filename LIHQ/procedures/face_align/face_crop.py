@@ -1,5 +1,4 @@
 from pathlib import Path
-from google.colab import files
 from io import BytesIO
 from matplotlib import pyplot as plt
 from PIL import Image
