@@ -72,6 +72,7 @@ def run(face, audio_super = 'LIHQ/input/audio/', ref_vid = 'LIHQ/input/ref_vid/s
     for adir in aud_dir_names:
         wav2lip_run(adir)
     w2l_folders = sorted(glob.glob('./LIHQ/output/wav2Lip/*'))
+    print(w2l_folders)
     if len(w2l_folders) < len(aud_dir_names):
         print('Wav2Lip could not generate at least one of your videos.\n'
             'Possibly bad audio, unrecognizable mouth, bad file paths, out of memory.\n'
