@@ -60,6 +60,6 @@ def FOMM_run(source_img_path, source_vid_path, generator, kp_detector, adir, Rou
     predictions = make_animation(source_image, driving_video, generator, kp_detector, relative = relativeTF)
 
     #save resulting video
-    FOMM_out_path = f'./LIHQ/output/FOMM/Round{Round}/{adir}.mp4'
+    FOMM_out_path = f'/home/ec2-user/extras/LIHQ/output/FOMM/Round{Round}/{adir}.mp4'
     imageio.mimsave(FOMM_out_path, [img_as_ubyte(frame) for frame in predictions], fps=fps)
     
