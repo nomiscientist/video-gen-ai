@@ -118,8 +118,7 @@ def run(face, audio_super = '/home/ec2-user/extras/LIHQ/input/audio/', ref_vid =
 
     #frames2Vid (Converting frames back to video)
     for adir in aud_dir_names:
-        print(f'/home/ec2-user/extras/{audio_super}{adir}/*')
-        aud_path = glob.glob(f'/home/ec2-user/extras/{audio_super}{adir}/*')[0]
+        aud_path = glob.glob(f'{audio_super}{adir}/*')[0]
         frames_in_path = f'/home/ec2-user/extras/LIHQ/output/GFPGAN/Round1/{adir}/restored_imgs/%5d.png'
         vid_out_path = f'/home/ec2-user/extras/LIHQ/output/frames2Vid/Round1/{adir}.mp4'
         frames2vid(25, aud_path, frames_in_path, vid_out_path)
