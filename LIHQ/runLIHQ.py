@@ -115,6 +115,7 @@ def run(face, audio_super = 'LIHQ/input/audio/', ref_vid = 'LIHQ/input/ref_vid/s
 
     #frames2Vid (Converting frames back to video)
     for adir in aud_dir_names:
+        print(f'{audio_super}{adir}')
         aud_path = glob.glob(f'{audio_super}{adir}/*')[0]
         frames_in_path = f'./LIHQ/output/GFPGAN/Round1/{adir}/restored_imgs/%5d.png'
         vid_out_path = f'./LIHQ/output/frames2Vid/Round1/{adir}.mp4'
