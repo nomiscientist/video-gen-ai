@@ -15,8 +15,8 @@ tts = TextToSpeech()
 
 
 # Generating a random voice to speak the sentence below. When you generate one you like, save it using the cell below
-text = "Hello, I'm Joe Biden, and I support this message. In these challenging times, unity is our strength.  Together, we can tackle the pressing issues facing our nation – from health to economy. As your leader, I'm committed to building a more just and prosperous future. Thank you, and may God bless the United States of America."
-voice = 'biden'
+text = "Hello, I'm Morgan Freeman, and I support this message. Thank you, and may God bless the United States of America."
+voice = 'freeman'
 preset = "high_quality" #Options: {"ultra_fast", "fast", "standard", "high_quality"}.
 
 gen = tortoise_run(tts, text, voice, preset)
@@ -37,23 +37,23 @@ silent_segment.export(save_path, format="wav")
 
 from LIHQ.procedures.face_align.face_crop import crop_face
 
-crop_face(filename = 'LIHQ/input/face/biden.jpg',
-          outfile = 'LIHQ/input/face/bidenCrop.jpg')
+crop_face(filename = 'LIHQ/input/face/morgan.png',
+          outfile = 'LIHQ/input/face/morganCrop.png')
 
 from LIHQ.runLIHQ import run
 
-run(face='LIHQ/input/face/bidenCrop.jpg', frame_int=2)
+run(face='LIHQ/input/face/morganCrop.png', frame_int=2)
 
 
 #Important! If you want to paste the speaker in the same location as the original image, look at printouts of image cropping cell above
 
 speaker_vid = 'LIHQ/output/finalVidsOut/Folder1.mp4' # Your speaker video created by LIHQ
-background = 'LIHQ/input/face/biden.jpg' # Can be image or video (Final video output will be smallest fps between background vid and speaker vid.)
+background = 'LIHQ/input/face/morgan.png' # Can be image or video (Final video output will be smallest fps between background vid and speaker vid.)
 bg_resize = False # Set to False or your desired background size in format: (width, height)
 spkr_resize = (221, 221) # Set to False or your desired speaker size in format: (width, height)
 offset = [47, 757] # In the form [y, x]. Offset of speaker image onto background, from top left
 rotation = 9.37 #Counterclockwise, in degrees
-output_path = "biden_static.mp4" # EVERYTHING IN POSTPROCESSING FOLDER GETS DELETED AT THE START OF A NEW RUN!
+output_path = "morgan_static.mp4" # EVERYTHING IN POSTPROCESSING FOLDER GETS DELETED AT THE START OF A NEW RUN!
                                     # So save outside of postprocessing folder.
 
 
