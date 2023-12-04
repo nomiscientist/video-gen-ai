@@ -4,9 +4,9 @@ import sys
 
 def wav2lip_run(adir):
   print("path:" + os.getcwd())
-  vid_path = f'{os.getcwd()}/output/FOMM/Round1/{adir}.mp4'
-  aud_path = f'{os.getcwd()}/input/audio/{adir}/{adir}.wav'
-  out_path = f'{os.getcwd()}/output/wav2Lip/{adir}.mp4'
+  vid_path = f'{os.getcwd()}LIHQ/output/FOMM/Round1/{adir}.mp4'
+  aud_path = f'{os.getcwd()}LIHQ/input/audio/{adir}/{adir}.wav'
+  out_path = f'{os.getcwd()}LIHQ/output/wav2Lip/{adir}.mp4'
   os.chdir('LIHQ/Wav2Lip')
   command = f'python inference.py --checkpoint_path ./checkpoints/wav2lip.pth --face {vid_path} --audio {aud_path} --outfile {out_path}  --pads 0 20 0 0'
   try:
