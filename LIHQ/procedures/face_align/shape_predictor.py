@@ -5,7 +5,7 @@ import scipy
 import scipy.ndimage
 import dlib
 from pathlib import Path
-from bicubic import BicubicDownSample
+from LIHQ.procedures.face_align.bicubic import BicubicDownSample
 import math
 
 """

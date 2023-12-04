@@ -6,10 +6,10 @@ import torchvision
 from IPython import display
 import numpy as np
 from LIHQ.procedures.face_align.shape_predictor import align_face
-from drive import open_url
+from LIHQ.procedures.face_align.drive import open_url
 import dlib
 from mpl_toolkits.axes_grid1 import ImageGrid
-from bicubic import BicubicDownSample
+from LIHQ.procedures.face_align.bicubic import BicubicDownSample
 
 ######################################
 # Stolen (and modified) from PULSE face depixelization
