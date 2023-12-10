@@ -19,7 +19,7 @@ os.chdir('../../')
 
 
 
-def run(face, audio_super = '/home/ec2-user/extras/LIHQ/input/audio/', ref_vid = '/home/ec2-user/extras/LIHQ/input/ref_vid/syn_reference.mp4', ref_vid_offset = [0], frame_int = None, clear_outputs=True, save_path = None):
+def run(face, audio_super = '/workspace/video-gen-ai/LIHQ/input/audio/', ref_vid = '/workspace/video-gen-ai/LIHQ/input/ref_vid/syn_reference.mp4', ref_vid_offset = [0], frame_int = None, clear_outputs=True, save_path = None):
 
     #Miscellaneous things
     print("Initializing")
@@ -37,7 +37,7 @@ def run(face, audio_super = '/home/ec2-user/extras/LIHQ/input/audio/', ref_vid =
 
       #Deleteing output files
     if clear_outputs == True:
-        for path in Path("/home/ec2-user/extras/LIHQ/output").glob("**/*"):
+        for path in Path("/workspace/video-gen-ai/LIHQ/output").glob("**/*"):
             if path.is_file():
                 path.unlink()
 
@@ -59,10 +59,10 @@ def run(face, audio_super = '/home/ec2-user/extras/LIHQ/input/audio/', ref_vid =
 
       #Running FOMM (Mimicking facial movements from reference video)
     print("Running First Order Motion Model")
-    generator, kp_detector = load_checkpoints(config_path='/home/ec2-user/extras/LIHQ/first_order_model/config/vox-256.yaml', checkpoint_path='/home/ec2-user/extras/LIHQ/first_order_model/vox-cpk.pth.tar')
+    generator, kp_detector = load_checkpoints(config_path='/workspace/video-gen-ai/LIHQ/first_order_model/config/vox-256.yaml', checkpoint_path='/workspace/video-gen-ai/LIHQ/first_order_model/vox-cpk.pth.tar')
     i = 0
     for adir in aud_dir_names:
-        sub_clip = f'/home/ec2-user/extras/LIHQ/first_order_model/input-ref-vid/{adir}/{adir}.mp4'
+        sub_clip = f'/workspace/video-gen-ai/LIHQ/first_order_model/input-ref-vid/{adir}/{adir}.mp4'
         FOMM_run(face[i], sub_clip, generator, kp_detector, adir, Round = "1")
         i+=1
     print("FOMM Success!")
@@ -71,7 +71,7 @@ def run(face, audio_super = '/home/ec2-user/extras/LIHQ/input/audio/', ref_vid =
     print("Running Wav2Lip")
     for adir in aud_dir_names:
         wav2lip_run(adir)
-    w2l_folders = sorted(glob.glob('/home/ec2-user/extras/LIHQ/output/wav2Lip/*'))
+    w2l_folders = sorted(glob.glob('/workspace/video-gen-ai/LIHQ/output/wav2Lip/*'))
     print(w2l_folders)
     if len(w2l_folders) < len(aud_dir_names):
         print('Wav2Lip could not generate at least one of your videos.\n'
@@ -92,8 +92,8 @@ def run(face, audio_super = '/home/ec2-user/extras/LIHQ/input/audio/', ref_vid =
 
     #Vid 2 Frames (Converting wav2Lip output to frames for next step)
     for adir in aud_dir_names:
-        frames_out_V2F = f'/home/ec2-user/extras/LIHQ/output/vid2Frames/Round1/{adir}/'
-        vidPath = f'/home/ec2-user/extras/LIHQ/output/wav2Lip/{adir}.mp4'
+        frames_out_V2F = f'/workspace/video-gen-ai/LIHQ/output/vid2Frames/Round1/{adir}/'
+        vidPath = f'/workspace/video-gen-ai/LIHQ/output/wav2Lip/{adir}.mp4'
         os.makedirs(frames_out_V2F, exist_ok=True)
         vid2frames(vidPath, frames_out_V2F)
 
@@ -106,7 +106,7 @@ def run(face, audio_super = '/home/ec2-user/extras/LIHQ/input/audio/', ref_vid =
 
         print(in_pth)
         print(out_pth)
-        command = f'python /home/ec2-user/extras/LIHQ/GFPGAN/inference_gfpgan.py -i {in_pth} -o {out_pth} -v 1.3 -s 4 --bg_upsampler realesrgan'
+        command = f'python /workspace/video-gen-ai/LIHQ/GFPGAN/inference_gfpgan.py -i {in_pth} -o {out_pth} -v 1.3 -s 4 --bg_upsampler realesrgan'
         try:
             subprocess.call(command, shell=True)
         except subprocess.CalledProcessError:
@@ -119,8 +119,8 @@ def run(face, audio_super = '/home/ec2-user/extras/LIHQ/input/audio/', ref_vid =
     #frames2Vid (Converting frames back to video)
     for adir in aud_dir_names:
         aud_path = glob.glob(f'{audio_super}{adir}/*')[0]
-        frames_in_path = f'/home/ec2-user/extras/LIHQ/output/GFPGAN/Round1/{adir}/restored_imgs/%5d.png'
-        vid_out_path = f'/home/ec2-user/extras/LIHQ/output/frames2Vid/Round1/{adir}.mp4'
+        frames_in_path = f'/workspace/video-gen-ai/LIHQ/output/GFPGAN/Round1/{adir}/restored_imgs/%5d.png'
+        vid_out_path = f'/workspace/video-gen-ai/LIHQ/output/frames2Vid/Round1/{adir}.mp4'
         frames2vid(25, aud_path, frames_in_path, vid_out_path)
 
     #Round1 Printouts
@@ -137,14 +137,14 @@ def run(face, audio_super = '/home/ec2-user/extras/LIHQ/input/audio/', ref_vid =
     print("First Order Motion Model")
     i=0
     for adir in aud_dir_names:
-        ref_video = f'/home/ec2-user/extras/LIHQ/output/frames2Vid/Round1/{adir}.mp4'
+        ref_video = f'/workspace/video-gen-ai/LIHQ/output/frames2Vid/Round1/{adir}.mp4'
         FOMM_run(face[i], ref_video, generator, kp_detector, adir, Round = "2", relativeTF = False)
         i+=1
 
     #Vid2Frames R2
     for adir in aud_dir_names:
-        frames_out_V2F = f'/home/ec2-user/extras/LIHQ/output/vid2Frames/Round2/{adir}/'
-        vid_path = f'/home/ec2-user/extras/LIHQ/output/FOMM/Round2/{adir}.mp4'
+        frames_out_V2F = f'/workspace/video-gen-ai/LIHQ/output/vid2Frames/Round2/{adir}/'
+        vid_path = f'/workspace/video-gen-ai/LIHQ/output/FOMM/Round2/{adir}.mp4'
         os.makedirs(frames_out_V2F, exist_ok=True)
         vid2frames(vid_path, frames_out_V2F)
 
@@ -171,8 +171,8 @@ def run(face, audio_super = '/home/ec2-user/extras/LIHQ/input/audio/', ref_vid =
       #Final Frames2Vid
         for adir in aud_dir_names:
             aud_path = glob.glob(f'{audio_super}{adir}/*')[0]
-            frames_in_path = f'/home/ec2-user/extras/LIHQ/output/GFPGAN/Round2/{adir}/restored_imgs/%5d.png'
-            vid_out_path = f'/home/ec2-user/extras/LIHQ/output/frames2Vid/Round2/{adir}.mp4'
+            frames_in_path = f'/workspace/video-gen-ai/LIHQ/output/GFPGAN/Round2/{adir}/restored_imgs/%5d.png'
+            vid_out_path = f'/workspace/video-gen-ai/LIHQ/output/frames2Vid/Round2/{adir}.mp4'
             frames2vid(25, aud_path, frames_in_path, vid_out_path)
 
     else:
@@ -180,15 +180,15 @@ def run(face, audio_super = '/home/ec2-user/extras/LIHQ/input/audio/', ref_vid =
         print('Beginning Frame Interpolation.')
         QVIstart = time.time()
         for adir in aud_dir_names:
-            os.makedirs(f'/home/ec2-user/extras/LIHQ/output/QVI/{adir}/', exist_ok=True)
+            os.makedirs(f'/workspace/video-gen-ai/LIHQ/output/QVI/{adir}/', exist_ok=True)
             config = qvi_config(adir, frame_int)
             os.chdir('QVI')
             qvi_main(config)
             os.chdir('..')
 
             aud_path = glob.glob(f'{audio_super}{adir}/*')[0]
-            frames_in_path = f'/home/ec2-user/extras/LIHQ/output/QVI/{adir}/restored_imgs/*'
-            vid_out_path = f'/home/ec2-user/extras/LIHQ/output/frames2Vid/Round2/{adir}.mp4'
+            frames_in_path = f'/workspace/video-gen-ai/LIHQ/output/QVI/{adir}/restored_imgs/*'
+            vid_out_path = f'/workspace/video-gen-ai/LIHQ/output/frames2Vid/Round2/{adir}.mp4'
             command = f'ffmpeg -y -r \'{fps}\' -f image2 -pattern_type glob -i \'{frames_in_path}\' -i \'{aud_path}\' -vcodec mpeg4 -b:v 20000k \'{vid_out_path}\''
             subprocess.call(command, shell=True)
 
@@ -199,16 +199,16 @@ def run(face, audio_super = '/home/ec2-user/extras/LIHQ/input/audio/', ref_vid =
 
     #Copying to final vids folder
     for adir in aud_dir_names:
-        src = f'/home/ec2-user/extras/LIHQ/output/frames2Vid/Round2/{adir}.mp4'
-        final_vids = f'/home/ec2-user/extras/LIHQ/output/finalVidsOut/{adir}.mp4'
+        src = f'/workspace/video-gen-ai/LIHQ/output/frames2Vid/Round2/{adir}.mp4'
+        final_vids = f'/workspace/video-gen-ai/LIHQ/output/finalVidsOut/{adir}.mp4'
         shutil.copyfile(src, final_vids)
 
     #Copying final video to save_path
     if save_path != None:
         for adir in aud_dir_names:
-            src = f'/home/ec2-user/extras/LIHQ/output/finalVidsOut/{adir}.mp4'
+            src = f'/workspace/video-gen-ai/LIHQ/output/finalVidsOut/{adir}.mp4'
             shutil.copyfile(src, f'{save_path}{adir}.mp4')
 
     print('Complete!')
-    print('Check /home/ec2-user/extras/LIHQ/output/finalVidsOut and your save_path if one was set.')
+    print('Check /workspace/video-gen-ai/LIHQ/output/finalVidsOut and your save_path if one was set.')
     

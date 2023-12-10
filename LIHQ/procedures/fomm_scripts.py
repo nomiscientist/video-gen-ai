@@ -20,12 +20,12 @@ def FOMM_chop_refvid(aud_dir_names, ref_vid, audio_super, ref_vid_offset):
         offset = np.pad(offset, (0, len(aud_dir_names)-len(ref_vid_offset)), 'constant')
 
     for adir in aud_dir_names:
-        os.makedirs(f'/home/ec2-user/extras/LIHQ/first_order_model/input-ref-vid/{adir}', exist_ok=True)
+        os.makedirs(f'/workspace/video-gen-ai/LIHQ/first_order_model/input-ref-vid/{adir}', exist_ok=True)
         print(f'{audio_super}{adir}/*')
         audio = glob.glob(f'{audio_super}{adir}/*')[0]
         audio_length = librosa.get_duration(filename = audio)
 
-        output_video_path = f'/home/ec2-user/extras/LIHQ/first_order_model/input-ref-vid/{adir}/{adir}.mp4'
+        output_video_path = f'/workspace/video-gen-ai/LIHQ/first_order_model/input-ref-vid/{adir}/{adir}.mp4'
         with VideoFileClip(ref_vid) as video:
             total_audio_length = offset[i] + audio_length
             if video.duration < total_audio_length:
@@ -61,6 +61,6 @@ def FOMM_run(source_img_path, source_vid_path, generator, kp_detector, adir, Rou
     predictions = make_animation(source_image, driving_video, generator, kp_detector, relative = relativeTF)
 
     #save resulting video
-    FOMM_out_path = f'/home/ec2-user/extras/LIHQ/output/FOMM/Round{Round}/{adir}.mp4'
+    FOMM_out_path = f'/workspace/video-gen-ai/LIHQ/output/FOMM/Round{Round}/{adir}.mp4'
     imageio.mimsave(FOMM_out_path, [img_as_ubyte(frame) for frame in predictions], fps=fps)
     

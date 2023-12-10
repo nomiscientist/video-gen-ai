@@ -8,7 +8,7 @@ def wav2lip_run(adir):
   aud_path = f'{os.getcwd()}/LIHQ/input/audio/{adir}/{adir}.wav'
   out_path = f'{os.getcwd()}/LIHQ/output/wav2Lip/{adir}.mp4'
   os.chdir('LIHQ/Wav2Lip')
-  command = f'python /home/ec2-user/extras/LIHQ/Wav2Lip/inference.py --checkpoint_path /home/ec2-user/extras/LIHQ/Wav2Lip/checkpoints/wav2lip.pth --face {vid_path} --audio {aud_path} --outfile {out_path}  --pads 0 20 0 0'
+  command = f'python /workspace/video-gen-ai/LIHQ/Wav2Lip/inference.py --checkpoint_path /workspace/video-gen-ai/LIHQ/Wav2Lip/checkpoints/wav2lip.pth --face {vid_path} --audio {aud_path} --outfile {out_path}  --pads 0 20 0 0'
   try:
     subprocess.call(command, shell=True)
   except subprocess.CalledProcessError:
