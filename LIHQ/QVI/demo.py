@@ -1,4 +1,4 @@
-import models
+import LIHQ.QVI.models
 import LIHQ.QVI.datas
 
 import argparse
@@ -9,7 +9,7 @@ import torch.nn as nn
 import time
 import os
 from math import log10
-from LIHQ.QVI.utils.config import Config
+from utils.config import Config
 import sys
 
 import time
