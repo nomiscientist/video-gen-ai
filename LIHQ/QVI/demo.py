@@ -1,4 +1,4 @@
-import LIHQ.QVI.models
+import models
 import LIHQ.QVI.datas
 
 import argparse
