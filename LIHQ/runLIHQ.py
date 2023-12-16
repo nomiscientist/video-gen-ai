@@ -7,15 +7,15 @@ import subprocess
 import argparse
 
 from LIHQ.procedures.av_scripts import *
-os.chdir('./LIHQ/first_order_model')
+# os.chdir('./LIHQ/first_order_model')
 from LIHQ.procedures.fomm_scripts import FOMM_chop_refvid, FOMM_run
-os.chdir('../../')
+# os.chdir('../../')
 from LIHQ.procedures.wav2lip_scripts import wav2lip_run
 from LIHQ.first_order_model.demo import load_checkpoints
 from LIHQ.procedures.qvi_scripts import qvi_config
-os.chdir('./LIHQ/QVI')
+# os.chdir('./LIHQ/QVI')
 from LIHQ.QVI.demo import main as qvi_main
-os.chdir('../../')
+# os.chdir('../../')
 
 
 
