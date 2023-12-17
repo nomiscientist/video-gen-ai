@@ -9,7 +9,7 @@ import torch.nn as nn
 import time
 import os
 from math import log10
-from utils.config import Config
+from LIHQ.QVI.utils.config import Config
 import sys
 
 import time
