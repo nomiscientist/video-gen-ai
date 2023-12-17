@@ -36,4 +36,4 @@ silent_segment.export(save_path, format="wav")
 
 from LIHQ.runLIHQ import run
 
-run(face='/home/ec2-user/extras/LIHQ/input/face/examples/morgan.png')
+run(face='/workspace/video-gen-ai/LIHQ/input/face/examples/morgan.png')
