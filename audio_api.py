@@ -33,4 +33,5 @@ def generate_tts():
     return jsonify({'audio_path': audio_path})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Run the app on 0.0.0.0 (accessible from any network address) and port 5001
+    app.run(host='172.31.0.2', port=3000, debug=True)
