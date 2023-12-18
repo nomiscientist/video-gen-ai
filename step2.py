@@ -17,7 +17,7 @@ tts = TextToSpeech()
 
 text = "Look how easy it is to create an artificial speaker."
 voice = 'freeman'
-preset = "high_quality" #Options: {"ultra_fast", "fast", "standard", "high_quality"}.
+preset = "ultra_fast" #Options: {"ultra_fast", "fast", "standard", "high_quality"}.
 
 gen = tortoise_run(tts, text, voice, preset)
 
