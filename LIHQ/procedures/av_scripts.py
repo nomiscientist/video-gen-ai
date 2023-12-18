@@ -86,6 +86,7 @@ def vid2frames(vid_path, frames_out_path):
 
 #Merging back into video
 def frames2vid(fps, aud_path, frames_in_path, vid_out_path):
+    print("Running frames2vid() ")
     command = f'ffmpeg -y -r {fps} -f image2 -i {frames_in_path} -i {aud_path} -vcodec mpeg4 -b:v 20000k {vid_out_path}'
     try:
       subprocess.call(command, shell=True)
